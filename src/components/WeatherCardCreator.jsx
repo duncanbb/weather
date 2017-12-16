@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Card from './Card';
-import { geocodeKey, weatherKey } from '../hideme';
+import { weatherKey } from '../hideme';
 import { getWeather } from '../utilities';
 import './WeatherCardCreator.css';
 
@@ -10,18 +10,28 @@ export default class WeatherCardCreator extends Component {
   };
 
   componentDidMount() {
-    navigator.geolocation.getCurrentPosition(geolocation => this.setState({ ...this.state, geolocation }));
-  }
-
-  componentDidUpdate() {
-    const { data, geolocation } = this.state;
-    if (geolocation && !data.length) {
-      const lat = geolocation.coords.latitude;
-      const lon = geolocation.coords.longitude;
-      const baseUrl = `http://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lon}&cnt=5&APPID=`;
-      fetch(`${baseUrl}${weatherKey}`).then(response => response.json()).then(json => {
-        this.setState({ ...this.state, data: getWeather(json) });
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(geolocation => {
+        const { data } = this.state;
+        if (geolocation && !data.length) {
+          const lat = geolocation.coords.latitude;
+          const lon = geolocation.coords.longitude;
+          const baseUrl = `http://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lon}&cnt=5&APPID=`;
+          fetch(`${baseUrl}${weatherKey}`)
+            .then(response => {
+              if (response.ok) {
+                return response.json();
+              } else {
+                console.log("there's been an error fetching the weather data");
+              }
+            })
+            .then(json => {
+              this.setState({ ...this.state, data: getWeather(json) });
+            });
+        }
       });
+    } else {
+      console.log('this app requires geolocation for use');
     }
   }
 
