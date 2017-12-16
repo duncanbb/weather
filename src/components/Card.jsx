@@ -5,7 +5,7 @@ const Card = (props = { max: '45°', min: '32°', day: 'Today', description: 'cl
     <div className='weather-card-day'>
       {props.day}
     </div>
-    <img src={require(`../../public/${props.description}.png`)} />
+    <img alt={props.description} src={require(`../../public/${props.description}.png`)} />
     <span className='max'>
       {props.max}
     </span>

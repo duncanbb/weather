@@ -1,6 +1,6 @@
-const kelvinToFahrenheit = kelvin => (kelvin * 9 / 5 - 459.67) | 0;
+export const kelvinToFahrenheit = kelvin => (kelvin * 9 / 5 - 459.67) | 0;
 
-const getWeather = weatherData => {
+export const getWeather = weatherData => {
   const date = new Date();
   const today = date.getDay();
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];

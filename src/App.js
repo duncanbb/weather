@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import WeatherCardCreator from './components/WeatherCardCreator';
-import Card from './components/Card';
 
 class App extends Component {
   render () {
@@ -13,7 +12,6 @@ class App extends Component {
           <h1 className='App-title'>5 Day Forecast</h1>
         </header>
         <WeatherCardCreator />
-        {Card()}
         <p className='App-intro' />
       </div>
     );
