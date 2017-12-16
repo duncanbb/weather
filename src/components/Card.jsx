@@ -5,13 +5,15 @@ const Card = (props = { max: '45°', min: '32°', day: 'Today', description: 'cl
     <div className='weather-card-day'>
       {props.day}
     </div>
-    <img alt={props.description} src={require(`../../public/${props.description}.png`)} />
-    <span className='max'>
-      {props.max}
-    </span>
-    <span className='min'>
-      {props.min}
-    </span>
+    <img className='weather-card-img' alt={props.description} src={require(`../../public/${props.description}.png`)} />
+    <div className='card-details'>
+      <div className='max'>
+        High: {props.max}
+      </div>
+      <div className='min'>
+        Low: {props.min}
+      </div>
+    </div>
   </div>;
 
 export default Card;

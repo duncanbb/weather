@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Card from './Card';
-import key from '../hideme';
+import { geocodeKey, weatherKey } from '../hideme';
 import { getWeather } from '../utilities';
+import './WeatherCardCreator.css';
 
 export default class WeatherCardCreator extends Component {
   state = {
@@ -14,9 +15,11 @@ export default class WeatherCardCreator extends Component {
 
   componentDidUpdate() {
     const { data, geolocation } = this.state;
-    const baseUrl = 'http://api.openweathermap.org/data/2.5/forecast/daily?q=New%20York&APPID=';
     if (geolocation && !data.length) {
-      fetch(`${baseUrl}${key}`).then(response => response.json()).then(json => {
+      const lat = geolocation.coords.latitude;
+      const lon = geolocation.coords.longitude;
+      const baseUrl = `http://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lon}&cnt=5&APPID=`;
+      fetch(`${baseUrl}${weatherKey}`).then(response => response.json()).then(json => {
         this.setState({ ...this.state, data: getWeather(json) });
       });
     }
@@ -24,12 +27,12 @@ export default class WeatherCardCreator extends Component {
 
   renderDays() {
     const { data } = this.state;
-    return data.map(dayData => <Card {...dayData} />);
+    return data.map(dayData => <Card {...dayData} key={dayData.day} />);
   }
 
   render() {
     return (
-      <div>
+      <div className="Weather-card-container">
         {this.renderDays()}
       </div>
     );

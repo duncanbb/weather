@@ -1,0 +1,25 @@
+.Weather-card-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2rem;
+}
+
+.weather-card {
+  height: 10rem;
+  background: #fff;
+  border: 1px solid gray;
+  border-radius: 0.75rem;
+  min-width: 140px;
+  padding: 1rem;
+}
+
+.weather-card-img {
+  margin-top: 1rem;
+}
+.weather-card-day {
+  padding-top: 1rem;
+}
+
+.card-details {
+  margin-top: 1rem;
+}
