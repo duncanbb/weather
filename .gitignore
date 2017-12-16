@@ -9,6 +9,9 @@
 # production
 /build
 
+#apikey
+hideme.js
+
 # misc
 .DS_Store
 .env.local
