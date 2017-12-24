@@ -1,6 +1,8 @@
+import { weatherKey } from './hideme';
+
 export const kelvinToFahrenheit = kelvin => (kelvin * 9 / 5 - 459.67) | 0;
 
-export const getWeather = weatherData => {
+export const convertWeatherData = weatherData => {
   const date = new Date();
   const today = date.getDay();
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -15,4 +17,15 @@ export const getWeather = weatherData => {
     };
   });
   return processed;
+};
+
+export const fetchWeather = async (lat, lon) => {
+  const baseUrl = `http://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lon}&cnt=5&APPID=`;
+  const fullUrl = `${baseUrl}${weatherKey}`;
+  try {
+    let res = await fetch(fullUrl);
+    return res.json();
+  } catch (e) {
+    console.log("there's been an error retrieving the weather data, please check your key");
+  }
 };
